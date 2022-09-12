@@ -13,7 +13,6 @@ Authorization: Basic admin@fiap.com.br administrador
 
 # Cadastrar usuário
 POST http://localhost:8080/api/user
-Authorization: Basic admin@fiap.com.br administrador
 Content-Type: application/json
 
 {

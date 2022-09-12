@@ -52,7 +52,19 @@ public class TestConfiguration implements CommandLineRunner {
             new User()
                 .name("João")
                 .email("admin@fiap.com.br")
-                .password(" administrador")
+                .password("administrador")
+        );
+        userRepository.save(
+            new User()
+                .name("Carlos")
+                .email("carlos@fiap.com.br")
+                .password("123")
+        );
+        userRepository.save(
+            new User()
+                .name("Maria")
+                .email("maria@gmail.com")
+                .password("55555")
         );
         
     }

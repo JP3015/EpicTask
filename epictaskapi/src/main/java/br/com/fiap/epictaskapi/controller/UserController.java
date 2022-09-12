@@ -51,7 +51,13 @@ public class UserController {
 
     @GetMapping("{id}")
     public ResponseEntity<User> show(@PathVariable Long id){
-        return ResponseEntity.of(service.get(id));
+        var option = service.get(id);
+        var user = option.get();
+        user.setPassword(null);
+        return ResponseEntity
+            .status(HttpStatus.OK)
+            .body(service.save(user)
+        );
     }
 
     @DeleteMapping("{id}")
