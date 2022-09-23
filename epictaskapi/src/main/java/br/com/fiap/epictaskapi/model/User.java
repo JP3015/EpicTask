@@ -11,9 +11,17 @@ import javax.persistence.Id;
 import javax.persistence.ManyToMany;
 import javax.persistence.Table;
 
+import org.springframework.beans.BeanUtils;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.util.Assert;
+
+import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonProperty;
+import com.fasterxml.jackson.annotation.JsonProperty.Access;
+
+import br.com.fiap.epictaskapi.dto.UserDto;
+import ch.qos.logback.core.joran.util.beans.BeanUtil;
 
 @Entity
 @Table(name = "TB_USER")
@@ -23,10 +31,15 @@ public class User implements UserDetails {
     private Long id;
     private String name;
     private String email;
+    @JsonProperty(access = Access.WRITE_ONLY)
     private String password;
 
     @ManyToMany(fetch = FetchType.EAGER)
     private List<Role> roles;
+
+    public UserDto toDto(){
+        return new UserDto(id, name, email);
+    }
 
     public User name(String name){
         Assert.notNull(name, "name is required");
@@ -46,8 +59,6 @@ public class User implements UserDetails {
         return this;
     }
 
-    
-
     public Long getId() {
         return id;
     }
@@ -55,6 +66,7 @@ public class User implements UserDetails {
     public void setId(Long id) {
         this.id = id;
     }
+
 
     public String getName() {
         return name;
@@ -105,6 +117,6 @@ public class User implements UserDetails {
         return true;
     }
 
-    
-    
+
+
 }

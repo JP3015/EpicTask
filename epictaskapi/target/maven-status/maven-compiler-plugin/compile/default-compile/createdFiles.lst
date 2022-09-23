@@ -1,0 +1,14 @@
+br\com\fiap\epictaskapi\repository\TaskRepository.class
+br\com\fiap\epictaskapi\service\UserService.class
+br\com\fiap\epictaskapi\service\UserDetailsServiceImp.class
+br\com\fiap\epictaskapi\model\Role.class
+br\com\fiap\epictaskapi\controller\UserController.class
+br\com\fiap\epictaskapi\config\security\AuthenticationConfig.class
+br\com\fiap\epictaskapi\model\User.class
+br\com\fiap\epictaskapi\controller\TaskController.class
+br\com\fiap\epictaskapi\dto\UserDto.class
+br\com\fiap\epictaskapi\config\TestConfiguration.class
+br\com\fiap\epictaskapi\service\TaskService.class
+br\com\fiap\epictaskapi\EpictaskapiApplication.class
+br\com\fiap\epictaskapi\model\Task.class
+br\com\fiap\epictaskapi\repository\UserRepository.class
