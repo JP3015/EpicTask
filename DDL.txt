@@ -1,0 +1,16 @@
+create table task (
+    id bigint not null, 
+    description varchar(255), 
+    score integer not null, 
+    status integer not null, 
+    title varchar(255), 
+    primary key (id)
+);
+
+create table tb_user (
+    id Long not null, 
+    name varchar2 not null, 
+    email varchar2 not null, 
+    password varchar2 not null, 
+    primary key (id)
+);

@@ -29,22 +29,6 @@ public class TestConfiguration implements CommandLineRunner {
             new Task("Modelar BD", "Modelar as tabelas do banco"),
             new Task("Protipar", "Prototipo das telas do site"),
             new Task("Modelar BD", "Modelar as tabelas do banco"),
-            new Task("Protipar", "Prototipo das telas do site"),
-            new Task("Modelar BD", "Modelar as tabelas do banco"),
-            new Task("Protipar", "Prototipo das telas do site"),
-            new Task("Modelar BD", "Modelar as tabelas do banco"),
-            new Task("Protipar", "Prototipo das telas do site"),
-            new Task("Modelar BD", "Modelar as tabelas do banco"),
-            new Task("Protipar", "Prototipo das telas do site"),
-            new Task("Modelar BD", "Modelar as tabelas do banco"),
-            new Task("Protipar", "Prototipo das telas do site"),
-            new Task("Modelar BD", "Modelar as tabelas do banco"),
-            new Task("Protipar", "Prototipo das telas do site"),
-            new Task("Modelar BD", "Modelar as tabelas do banco"),
-            new Task("Protipar", "Prototipo das telas do site"),
-            new Task("Modelar BD", "Modelar as tabelas do banco"),
-            new Task("Protipar", "Prototipo das telas do site"),
-            new Task("Modelar BD", "Modelar as tabelas do banco"),
             new Task("Protipar", "Prototipo das telas do site")
         ));
 
