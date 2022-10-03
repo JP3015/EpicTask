@@ -5,6 +5,8 @@ import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.context.annotation.Profile;
+import org.springframework.security.crypto.password.PasswordEncoder;
 
 import br.com.fiap.epictaskapi.model.Task;
 import br.com.fiap.epictaskapi.model.User;
@@ -12,6 +14,7 @@ import br.com.fiap.epictaskapi.repository.TaskRepository;
 import br.com.fiap.epictaskapi.repository.UserRepository;
 
 @Configuration
+@Profile("dev")
 public class TestConfiguration implements CommandLineRunner {
 
     @Autowired
@@ -19,6 +22,9 @@ public class TestConfiguration implements CommandLineRunner {
 
     @Autowired
     UserRepository userRepository;
+    
+    @Autowired
+    PasswordEncoder passwordEncoder;
 
     @Override
     public void run(String... args) throws Exception {
@@ -36,19 +42,19 @@ public class TestConfiguration implements CommandLineRunner {
             new User()
                 .name("João")
                 .email("admin@fiap.com.br")
-                .password("administrador")
+                .password(passwordEncoder.encode("administrador"))
         );
         userRepository.save(
             new User()
                 .name("Carlos")
                 .email("carlos@fiap.com.br")
-                .password("123")
+                .password(passwordEncoder.encode("123"))
         );
         userRepository.save(
             new User()
                 .name("Maria")
                 .email("maria@gmail.com")
-                .password("55555")
+                .password(passwordEncoder.encode("55555"))
         );
         
     }

@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html xmlns:th="http://thymeleaf.org"></html>
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>EpicTask</title>
+    <link rel="stylesheet" type="text/css" th:href="@{~/css/global.css}">
+</head>
+<body>
+    <header>
+        <h1>EpicTask</h1>
+    </header>
+
+    <nav>
+        <ul>
+            <li class="active"><a href="#">Pendentes</a></li>
+            <li><a href="#">Concluídas</a></li>
+            <li><a href="#">Usuários</a></li>
+        </ul>
+    </nav>
+
+    <div class="toolbar">
+        <a href="/task/new" class="button">Cadastrar Tarefa</a>
+    </div>
+
+    <div th:if="${message != null}" class="alert success">
+        <span th:text="${message}"></span>
+    </div>
+
+    <main class="cards">
+        <div class="card animated" th:each="task : ${tasks}">
+            <h2 th:text="${task.title}"></h2>
+            <div class="status">
+                <svg>
+                    <circle cx="70" cy="70" r="70" />
+                    <circle cx="70" cy="70" r="70" th:style="${'stroke-dashoffset: ' + (440 - (440 * task.status) / 100) }" />
+                </svg>
+                <div class="number">
+                    <h2 th:text="${task.status + '%'}"></h2>
+                </div>
+            </div>
+            <div class="score">
+                <span class="material-icons">star</span>
+                <span th:text="${task.score + 'pts'}"></span>
+            </div>
+            <div class="actions">
+                <a th:href="${'/task/delete/' + task.id}">
+                    <span class="material-icons">delete</span>
+                </a>
+                <a th:href="${'/task/update/' + task.id}">
+                    <span class="material-icons">edit</span>
+                </a>
+            </div>
+        </div>
+    </main>
+</body>
+</html>
