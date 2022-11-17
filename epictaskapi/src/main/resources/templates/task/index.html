@@ -1,16 +1,27 @@
 <!DOCTYPE html>
-<html xmlns:th="http://thymeleaf.org">
-<head th:insert="_template :: head"></head>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" th:href="@{~/css/global.css}">
+    <title>Epic Task</title>
+</head>
 <body>
-    <header th:insert="_template :: header"></header>
+    <header>
+        <h1>Epic Task</h1>
+        <div class="login-info">
+            <span sec:authentication="principal.name"></span>
+            <a href="/logout"><span class="material-icons">logout</span></a>
+        </div>
+    </header>
 
-    <nav th:insert="_template :: menu('undone')"></nav>
 
     <div class="toolbar">
-        <a href="/task/new" sec:authorize-url="POST /task" class="button">Cadastrar Tarefa</a>
+        <a class="button" href="/task/new" sec:authorize-url="POST /task">cadastrar tarefa</a>
     </div>
 
-    <div th:if="${message != null}" class="alert success">
+    <div class="alert success" th:if="${message != null}">
         <span th:text="${message}"></span>
     </div>
 
@@ -34,11 +45,12 @@
                 <a th:href="${'/task/delete/' + task.id}" sec:authorize="hasRole('ADMIN')">
                     <span class="material-icons">delete</span>
                 </a>
-                <a th:href="${'/task/update/' + task.id}">
+                <a th:href="${'/task/' + task.id}">
                     <span class="material-icons">edit</span>
                 </a>
             </div>
         </div>
     </main>
+
 </body>
 </html>

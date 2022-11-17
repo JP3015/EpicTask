@@ -15,16 +15,16 @@
         <div class="card lg">
             <h2>Cadastrar Tarefa</h2>
             <form class="vertical-form" action="/task" method="POST" th:object="${task}">
-                <input type="hidden" th:field="*{id}" id="id">
                 <label class="hide" for="title">título</label>
+                <input type="hidden" th:field="${task.id}" id="id">
                 <input 
                     placeholder="título" 
                     type="text" 
+                    id="title" 
                     th:field="*{title}"
-                    id="title"
                     th:classappend="${#fields.hasErrors('title')}?invalid"
                 >
-                <span th:errors="*{title}" ></span>
+                <span th:errors="*{title}"></span>
                 
                 <label class="hide" for="description">descrição</label>
                 <textarea 
@@ -33,18 +33,17 @@
                     id="description"
                     th:classappend="${#fields.hasErrors('description')}?invalid"
                 ></textarea>
-                <span th:errors="*{description}" ></span>
+                <span th:errors="*{description}"></span>
 
                 <label id="labelscore" for="score">pontos</label>
                 <input 
                     type="range" 
-                    min="1" 
+                    min="0" 
                     max="100" 
                     step="5" 
                     th:field="*{score}" 
                     id="score"
                 >
-                <span th:errors="*{score}" ></span>
                 
                 <div class="buttons">
                     <a href="/task" class="button cancel">cancelar</a>
@@ -53,7 +52,6 @@
             </form>
         </div>
     </main>
-</body>
-<script th:src="@{~/js/script.js}"></script>
-
+    </body>
+    <script th:src="@{~/js/script.js}"></script>
 </html>

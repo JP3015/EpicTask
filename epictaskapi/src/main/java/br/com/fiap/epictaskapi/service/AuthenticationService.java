@@ -1,5 +1,7 @@
 package br.com.fiap.epictaskapi.service;
 
+import java.util.Optional;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
@@ -10,16 +12,16 @@ import br.com.fiap.epictaskapi.model.User;
 import br.com.fiap.epictaskapi.repository.UserRepository;
 
 @Service
-public class UserDetailsServiceImp implements UserDetailsService{
+public class AuthenticationService implements UserDetailsService {
 
     @Autowired
-    private UserRepository repository;
+    UserRepository repository;
 
     @Override
     public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
-        //TODO verificar se existe
-        User user = repository.findByEmail(username);
-        return user;
+        Optional<User> user = repository.findByEmail(username);
+        if (user.isPresent()) return user.get();
+        throw new UsernameNotFoundException("username not found");
     }
     
 }

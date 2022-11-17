@@ -2,7 +2,6 @@ package br.com.fiap.epictaskapi.controller;
 
 import java.util.List;
 import java.util.Optional;
-import java.util.UUID;
 
 import javax.validation.Valid;
 
@@ -13,6 +12,7 @@ import org.springframework.cache.annotation.Cacheable;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
+import org.springframework.data.domain.Sort.Direction;
 import org.springframework.data.web.PageableDefault;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -36,51 +36,54 @@ public class TaskController {
     @Autowired
     private TaskService service;
     
-    @GetMapping
-    @Cacheable("task")
-    public Page<Task> index(@PageableDefault(size = 5) Pageable pageable){
-        return service.listAll(pageable);
+    @GetMapping()
+    @Cacheable("tasks")
+    public Page<Task> index(@PageableDefault(size = 5) Pageable paginacao){
+        return service.listAll(paginacao);
     }
 
-    @PostMapping
-    @CacheEvict(value = "task", allEntries = true)
+    @PostMapping()
     public ResponseEntity<Task> create(@RequestBody @Valid Task task){
+        service.save(task);
+        
         return ResponseEntity
             .status(HttpStatus.CREATED)
-            .body(service.save(task)
-        );
+            .body(task);
     }
 
     @GetMapping("{id}")
     public ResponseEntity<Task> show(@PathVariable Long id){
-        return ResponseEntity.of(service.get(id));
+        return ResponseEntity.of(service.getById(id));
     }
 
     @DeleteMapping("{id}")
-    @CacheEvict(value = "task", allEntries = true)
+    @CacheEvict(value = "tasks", allEntries = true)
     public ResponseEntity<Object> destroy(@PathVariable Long id){
-        Optional<Task> optional = service.get(id);
-        if(optional.isEmpty()){
+        Optional<Task> optional = service.getById(id);
+
+        if(optional.isEmpty())
             return ResponseEntity.status(HttpStatus.NOT_FOUND).build();
-        }
-        
-        service.remove(id);
+
+        service.deleteById(id);
         return ResponseEntity.status(HttpStatus.NO_CONTENT).build();
+
     }
 
     @PutMapping("{id}")
-    @CacheEvict(value = "task", allEntries = true)
-    public ResponseEntity<Task> update(@PathVariable Long id, @RequestBody @Valid Task newTask){
-        Optional<Task> optional = service.get(id);
-        if(optional.isEmpty()){
+    public ResponseEntity<Task> update (@PathVariable Long id, @RequestBody @Valid Task newTask){
+        Optional<Task> optional = service.getById(id);
+        if(optional.isEmpty())
             return ResponseEntity.status(HttpStatus.NOT_FOUND).build();
-        }
 
-        var task = optional.get();
+        Task task = optional.get();
+        newTask.setId(id);
         BeanUtils.copyProperties(newTask, task);
-        task.setId(id);
+
         service.save(task);
 
         return ResponseEntity.ok(task);
     }
+
+    
+
 }

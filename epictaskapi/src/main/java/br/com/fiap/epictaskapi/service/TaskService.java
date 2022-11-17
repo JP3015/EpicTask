@@ -15,37 +15,27 @@ import br.com.fiap.epictaskapi.repository.TaskRepository;
 public class TaskService {
     
     @Autowired
-    private TaskRepository repository;
-
-    public Page<Task> listAll(Pageable pageable){
-        return repository.findAll(pageable);
+    TaskRepository repository;
+    
+    public Page<Task> listAll(Pageable paginacao){
+        return repository.findAll(paginacao);
     }
 
     public List<Task> listAll() {
         return repository.findAll();
     }
 
-    public List<Task> listPending() {
-        return repository.findPending();
+    public void save(Task task) {
+        repository.save(task);
     }
 
-    public List<Task> listComplete() {
-        return repository.findComplete();
-    }
-
-    public Task save(Task task){
-        return repository.save(task);
-    }
-
-    public Optional<Task> get(Long id) {
+    public Optional<Task> getById(Long id) {
         return repository.findById(id);
     }
 
-    public void remove(Long id) {
+    public void deleteById(Long id) {
         repository.deleteById(id);
     }
-
-
 
 
 
