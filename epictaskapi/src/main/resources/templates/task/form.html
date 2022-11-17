@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" th:href="@{~/css/global.css}">
+    <link rel="stylesheet" th:href="@{~/css/range.css}">
+    <title>Epic Task</title>
+</head>
+<body>
+    <h1>Epic Task</h1>
+    
+    <main class="cards">
+        <div class="card lg">
+            <h2>Cadastrar Tarefa</h2>
+            <form class="vertical-form" action="/task" method="POST" th:object="${task}">
+                <input type="hidden" th:field="*{id}" id="id">
+                <label class="hide" for="title">título</label>
+                <input 
+                    placeholder="título" 
+                    type="text" 
+                    th:field="*{title}"
+                    id="title"
+                    th:classappend="${#fields.hasErrors('title')}?invalid"
+                >
+                <span th:errors="*{title}" ></span>
+                
+                <label class="hide" for="description">descrição</label>
+                <textarea 
+                    placeholder="descrição da tarefa" 
+                    th:field="*{description}" 
+                    id="description"
+                    th:classappend="${#fields.hasErrors('description')}?invalid"
+                ></textarea>
+                <span th:errors="*{description}" ></span>
+
+                <label id="labelscore" for="score">pontos</label>
+                <input 
+                    type="range" 
+                    min="1" 
+                    max="100" 
+                    step="5" 
+                    th:field="*{score}" 
+                    id="score"
+                >
+                <span th:errors="*{score}" ></span>
+                
+                <div class="buttons">
+                    <a href="/task" class="button cancel">cancelar</a>
+                    <input class="button" type="submit" value="cadastrar">
+                </div>
+            </form>
+        </div>
+    </main>
+</body>
+<script th:src="@{~/js/script.js}"></script>
+
+</html>

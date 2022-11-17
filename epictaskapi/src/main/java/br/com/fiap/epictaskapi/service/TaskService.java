@@ -1,5 +1,6 @@
 package br.com.fiap.epictaskapi.service;
 
+import java.util.List;
 import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -20,6 +21,18 @@ public class TaskService {
         return repository.findAll(pageable);
     }
 
+    public List<Task> listAll() {
+        return repository.findAll();
+    }
+
+    public List<Task> listPending() {
+        return repository.findPending();
+    }
+
+    public List<Task> listComplete() {
+        return repository.findComplete();
+    }
+
     public Task save(Task task){
         return repository.save(task);
     }
@@ -31,5 +44,9 @@ public class TaskService {
     public void remove(Long id) {
         repository.deleteById(id);
     }
+
+
+
+
 
 }
